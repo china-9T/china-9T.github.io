@@ -3,181 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中国资源导航中心</title>
+    <title>窃取访客信息</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #1890ff;
-            --secondary: #52c41a;
-            --glass: rgba(255,255,255,0.1);
+            --primary: #2A2F4F;
+            --secondary: #917FB3;
+            --gold: #D4AF37;
         }
 
         body {
-            font-family: "Microsoft YaHei", sans-serif;
-            background: linear-gradient(45deg, #1a1a2e, #2d2d57);
+            font-family: 'Helvetica Neue', sans-serif;
+            background: linear-gradient(45deg, #0F172A, #1E293B);
             color: #fff;
-            margin: 0;
             min-height: 100vh;
+            margin: 0;
+            line-height: 1.8;
         }
 
         /* 法律声明弹窗 */
-        .consent-modal {
+        .legal-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.9);
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 999;
+            z-index: 1000;
+            overflow-y: auto;
         }
 
-        .modal-content {
-            background: #fff;
+        .legal-content {
+            background: #1E293B;
+            width: 90%;
+            max-width: 800px;
             padding: 2rem;
             border-radius: 8px;
-            max-width: 600px;
-            color: #333;
-        }
-
-        /* 导航容器 */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* 分类导航区块 */
-        .nav-section {
-            margin: 2rem 0;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            padding: 1.5rem;
             border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* 链接网格布局 */
-        .link-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
+        /* 主内容区 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
         }
 
+        /* 高端导航卡 */
+        .premium-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        /* 链接样式 */
         .nav-link {
             display: flex;
             align-items: center;
-            padding: 12px;
-            border-radius: 6px;
-            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            margin: 0.8rem 0;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
             color: #fff;
             text-decoration: none;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
 
         .nav-link:hover {
             background: var(--primary);
-            transform: translateX(5px);
+            transform: translateX(10px);
+        }
+
+        /* 按钮样式 */
+        .elegant-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .elegant-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
     <!-- 法律声明弹窗 -->
-    <div class="consent-modal" id="consentModal">
-        <div class="modal-content">
-            <h2>个人信息收集声明</h2>
-            <p>根据《中华人民共和国个人信息保护法》要求，我们郑重声明：</p>
-            <ul>
-                <li>收集信息：设备类型、访问时间、地域分布</li>
-                <li>使用范围：流量统计分析、服务优化</li>
-                <li>存储期限：不超过30天</li>
-                <li>数据安全：采用SSL加密传输</li>
-            </ul>
-            <button onclick="agree()">同意并继续</button>
-            <button onclick="window.close()">拒绝并离开</button>
-        </div>
-    </div>
+    <div class="legal-modal" id="legalModal">
+        <div class="legal-content">
+            <h2 style="color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 1rem;">
+                <i class="fas fa-balance-scale"></i> 用户数据授权协议
+            </h2>
 
-    <div class="container">
-        <!-- 游戏导航 -->
-        <div class="nav-section">
-            <h2>🎮 游戏平台</h2>
-            <div class="link-grid">
-                <a href="https://www.wegame.com.cn" class="nav-link">腾讯WeGame</a>
-                <a href="https://game.163.com" class="nav-link">网易游戏</a>
-                <a href="https://www.3dmgame.com" class="nav-link">3DM游戏</a>
-                <a href="https://www.biligame.com" class="nav-link">哔哩哔哩游戏</a>
+            <div style="max-height: 60vh; overflow-y: auto; margin: 1rem 0;">
+                <h3>一、数据收集目的</h3>
+                <p>根据《中华人民共和国个人信息保护法》第十六条，我们仅收集实现以下功能所必需的最小数据：</p>
+                <ul>
+                    <li>网络安全防护和风险控制</li>
+                    <li>服务可用性监测与质量优化</li>
+                    <li>流量来源的统计分析</li>
+                </ul>
+
+                <h3>二、数据类型说明</h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr style="background: rgba(255,255,255,0.05);">
+                        <th style="padding: 8px;">数据类型</th>
+                        <th>具体内容</th>
+                        <th>存储期限</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px;">设备信息</td>
+                        <td>设备类型、操作系统版本、屏幕分辨率</td>
+                        <td>30天</td>
+                    </tr>
+                    <tr style="background: rgba(255,255,255,0.03);">
+                        <td style="padding: 8px;">网络信息</td>
+                        <td>IP地址、网络服务提供商</td>
+                        <td>7天</td>
+                    </tr>
+                </table>
+
+                <h3>三、用户权利保障</h3>
+                <p>根据《个人信息保护法》第四章规定，您享有以下权利：</p>
+                <ol>
+                    <li>随时撤回数据收集授权</li>
+                    <li>要求查阅收集的数据副本</li>
+                    <li>请求删除已存储的个人信息</li>
+                </ol>
+
+                <h3>四、数据安全措施</h3>
+                <p>我们采用以下技术手段保障数据安全：</p>
+                <ul>
+                    <li>AES-256加密存储</li>
+                    <li>HTTPS安全传输协议</li>
+                    <li>定期安全审计</li>
+                </ul>
             </div>
-        </div>
 
-        <!-- 视频平台 -->
-        <div class="nav-section">
-            <h2>🎥 视频平台</h2>
-            <div class="link-grid">
-                <a href="https://www.bilibili.com" class="nav-link">哔哩哔哩</a>
-                <a href="https://www.youku.com" class="nav-link">优酷视频</a>
-                <a href="https://www.iqiyi.com" class="nav-link">爱奇艺</a>
-                <a href="https://v.qq.com" class="nav-link">腾讯视频</a>
-            </div>
-        </div>
-
-        <!-- 实用工具 -->
-        <div class="nav-section">
-            <h2>🛠️ 效率工具</h2>
-            <div class="link-grid">
-                <a href="https://pan.baidu.com" class="nav-link">百度网盘</a>
-                <a href="https://www.wps.cn" class="nav-link">WPS办公</a>
-                <a href="https://docs.qq.com" class="nav-link">腾讯文档</a>
-                <a href="https://www.xunlei.com" class="nav-link">迅雷下载</a>
-            </div>
-        </div>
-
-        <!-- 新增社交导航 -->
-        <div class="nav-section">
-            <h2>💬 社交平台</h2>
-            <div class="link-grid">
-                <a href="https://weibo.com" class="nav-link">新浪微博</a>
-                <a href="https://www.douban.com" class="nav-link">豆瓣</a>
-                <a href="https://www.zhihu.com" class="nav-link">知乎</a>
-                <a href="https://tieba.baidu.com" class="nav-link">百度贴吧</a>
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="elegant-btn" onclick="agree()">接受协议</button>
+                <button class="elegant-btn" style="background: #444; margin-left: 1rem;" onclick="disagree()">拒绝并退出</button>
             </div>
         </div>
     </div>
+
+<!-- 主内容区 -->
+<div class="container">
+    <!-- 游戏平台 -->
+    <div class="premium-card">
+        <h2 style="color: var(--gold);"><i class="fas fa-gamepad"></i> 游戏娱乐</h2>
+        <a href="https://www.wegame.com.cn" class="nav-link">
+            <i class="fab fa-windows"></i> 腾讯WeGame
+        </a>
+        <a href="https://xyq.163.com" class="nav-link">
+            <i class="fas fa-dragon"></i> 梦幻西游
+        </a>
+        <a href="https://dnf.qq.com" class="nav-link">
+            <i class="fas fa-sword"></i> 地下城与勇士
+        </a>
+        <a href="https://lol.qq.com" class="nav-link">
+            <i class="fas fa-shield-alt"></i> 英雄联盟
+        </a>
+    </div>
+
+    <!-- 影音平台 -->
+    <div class="premium-card">
+        <h2 style="color: var(--gold);"><i class="fas fa-film"></i> 视听盛宴</h2>
+        <a href="https://www.bilibili.com" class="nav-link">
+            <i class="fab fa-bilibili"></i> 哔哩哔哩
+        </a>
+        <a href="https://www.iqiyi.com" class="nav-link">
+            <i class="fas fa-tv"></i> 爱奇艺
+        </a>
+        <a href="https://music.163.com" class="nav-link">
+            <i class="fas fa-music"></i> 网易云音乐
+        </a>
+        <a href="https://www.kugou.com" class="nav-link">
+            <i class="fas fa-headphones"></i> 酷狗音乐
+        </a>
+    </div>
+
+    <!-- 效率工具 -->
+    <div class="premium-card">
+        <h2 style="color: var(--gold);"><i class="fas fa-tools"></i> 效率神器</h2>
+        <a href="https://www.wps.cn" class="nav-link">
+            <i class="fas fa-file-word"></i> WPS办公
+        </a>
+        <a href="https://pan.baidu.com" class="nav-link">
+            <i class="fas fa-cloud"></i> 百度网盘
+        </a>
+        <a href="https://www.xunjiepdf.com" class="nav-link">
+            <i class="fas fa-file-pdf"></i> 迅捷PDF
+        </a>
+        <a href="https://www.zhihu.com" class="nav-link">
+            <i class="fab fa-zhihu"></i> 知乎专栏
+        </a>
+    </div>
+
+    <!-- 开发资源 -->
+    <div class="premium-card">
+        <h2 style="color: var(--gold);"><i class="fas fa-code"></i> 开发者中心</h2>
+        <a href="https://gitee.com" class="nav-link">
+            <i class="fab fa-git-alt"></i> Gitee代码托管
+        </a>
+        <a href="https://developers.weixin.qq.com" class="nav-link">
+            <i class="fab fa-weixin"></i> 微信开放平台
+        </a>
+        <a href="https://open.taobao.com" class="nav-link">
+            <i class="fas fa-shopping-cart"></i> 淘宝开放平台
+        </a>
+        <a href="https://ai.baidu.com" class="nav-link">
+            <i class="fas fa-robot"></i> 百度AI开放平台
+        </a>
+    </div>
+</div>
 
     <script>
-        // 法律声明控制
+        // 用户授权处理
         function agree() {
-            document.getElementById('consentModal').style.display = 'none';
-            localStorage.setItem('consent', 'agreed');
+            document.getElementById('legalModal').style.display = 'none';
+            localStorage.setItem('legalConsent', 'agreed');
             collectData();
         }
 
-        // 数据收集函数
-        function collectData() {
-            const data = {
-                timestamp: new Date().toISOString(),
-                userAgent: navigator.userAgent,
-                screen: screen.width + "x" + screen.height,
-                language: navigator.language
-            };
-
-            fetch('https://ipapi.co/json/')
-                .then(res => res.json())
-                .then(ipData => {
-                    console.log('合规收集数据:', {
-                        ...data,
-                        country: ipData.country_name,
-                        region: ipData.region
-                    });
-                });
+        function disagree() {
+            window.location.href = 'https://www.miit.gov.cn'; // 跳转至工信部官网
         }
 
-        // 首次访问显示声明
+        // 合规数据采集
+        function collectData() {
+            const analyticsData = {
+                timestamp: new Date().toISOString(),
+                referrer: document.referrer,
+                device: {
+                    type: navigator.userAgent.match(/Mobile/i) ? 'Mobile' : 'Desktop',
+                    resolution: `${screen.width}x${screen.height}`
+                }
+            };
+
+            // 示例日志输出（实际应发送至后端）
+            console.log('合规采集数据:', analyticsData);
+        }
+
+        // 首次访问检查
         window.onload = function() {
-            if (!localStorage.getItem('consent')) {
-                document.getElementById('consentModal').style.display = 'flex';
+            if (!localStorage.getItem('legalConsent')) {
+                document.getElementById('legalModal').style.display = 'flex';
             }
         }
     </script>
