@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的网站</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>欢迎访问我的网站！</h1>
+    <!-- 隐私提示 -->
+    <div id="privacyConsent" class="consent-box">
+        <p>本网站记录访问信息（IP地址、平台）。点击“同意”继续。</p>
+        <button onclick="handleConsent(true)">同意</button>
+        <button onclick="handleConsent(false)">拒绝</button>
+    </div>
+    <!-- 引入脚本 -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ua-parser-js@1.0.2/dist/ua-parser.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
