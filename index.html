@@ -1,190 +1,184 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>极简高端导航站</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>中国资源导航中心</title>
     <style>
-        /* 现代极简风格CSS */
         :root {
-            --primary: #6366f1;
-            --secondary: #8b5cf6;
+            --primary: #1890ff;
+            --secondary: #52c41a;
             --glass: rgba(255,255,255,0.1);
         }
 
         body {
-            font-family: system-ui, sans-serif;
-            background: linear-gradient(45deg, #1e1e2e, #2d2d57);
+            font-family: "Microsoft YaHei", sans-serif;
+            background: linear-gradient(45deg, #1a1a2e, #2d2d57);
             color: #fff;
-            min-height: 100vh;
             margin: 0;
-            line-height: 1.6;
+            min-height: 100vh;
         }
 
+        /* 法律声明弹窗 */
+        .consent-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            color: #333;
+        }
+
+        /* 导航容器 */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* 动态导航栏 */
-        .nav {
+        /* 分类导航区块 */
+        .nav-section {
+            margin: 2rem 0;
             background: var(--glass);
             backdrop-filter: blur(10px);
-            padding: 1rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .nav-brand {
-            font-size: 1.5rem;
-            font-weight: bold;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* 卡片式内容 */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .card {
-            background: var(--glass);
             border-radius: 12px;
             padding: 1.5rem;
-            backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.1);
-            transition: transform 0.3s;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
+        /* 链接网格布局 */
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
         }
 
-        /* 链接样式 */
-        .link-item {
+        .nav-link {
             display: flex;
             align-items: center;
-            gap: 10px;
             padding: 12px;
-            margin: 8px 0;
-            border-radius: 8px;
-            color: white;
-            text-decoration: none;
+            border-radius: 6px;
             background: rgba(255,255,255,0.05);
-            transition: background 0.3s;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s;
         }
 
-        .link-item:hover {
-            background: rgba(99, 102, 241, 0.2);
-        }
-
-        /* 法律声明 */
-        .privacy-notice {
-            text-align: center;
-            margin-top: 3rem;
-            opacity: 0.7;
-            font-size: 0.9rem;
+        .nav-link:hover {
+            background: var(--primary);
+            transform: translateX(5px);
         }
     </style>
 </head>
 <body>
-    <div class="nav">
-        <div class="nav-brand">NaviHub</div>
-        <div style="display: flex; gap: 20px;">
-            <a href="#games" style="color: white; text-decoration: none;">游戏</a>
-            <a href="#video" style="color: white; text-decoration: none;">视频</a>
-            <a href="#tools" style="color: white; text-decoration: none;">工具</a>
+    <!-- 法律声明弹窗 -->
+    <div class="consent-modal" id="consentModal">
+        <div class="modal-content">
+            <h2>个人信息收集声明</h2>
+            <p>根据《中华人民共和国个人信息保护法》要求，我们郑重声明：</p>
+            <ul>
+                <li>收集信息：设备类型、访问时间、地域分布</li>
+                <li>使用范围：流量统计分析、服务优化</li>
+                <li>存储期限：不超过30天</li>
+                <li>数据安全：采用SSL加密传输</li>
+            </ul>
+            <button onclick="agree()">同意并继续</button>
+            <button onclick="window.close()">拒绝并离开</button>
         </div>
     </div>
 
     <div class="container">
         <!-- 游戏导航 -->
-        <div class="card-grid">
-            <div class="card">
-                <h2>🎮 热门游戏</h2>
-                <a href="https://store.steampowered.com" class="link-item">
-                    <i class="fab fa-steam"></i>
-                    Steam平台
-                </a>
-                <a href="https://www.epicgames.com" class="link-item">
-                    <i class="fas fa-gamepad"></i>
-                    Epic Games
-                </a>
-            </div>
-
-            <!-- 视频导航 -->
-            <div class="card">
-                <h2>🎥 视频平台</h2>
-                <a href="https://www.youtube.com" class="link-item">
-                    <i class="fab fa-youtube"></i>
-                    YouTube
-                </a>
-                <a href="https://www.bilibili.com" class="link-item">
-                    <i class="fas fa-video"></i>
-                    哔哩哔哩
-                </a>
-            </div>
-
-            <!-- 工具导航 -->
-            <div class="card">
-                <h2>🛠️ 实用工具</h2>
-                <a href="https://github.com" class="link-item">
-                    <i class="fab fa-github"></i>
-                    GitHub
-                </a>
-                <a href="https://www.google.com/drive" class="link-item">
-                    <i class="fab fa-google-drive"></i>
-                    Google Drive
-                </a>
+        <div class="nav-section">
+            <h2>🎮 游戏平台</h2>
+            <div class="link-grid">
+                <a href="https://www.wegame.com.cn" class="nav-link">腾讯WeGame</a>
+                <a href="https://game.163.com" class="nav-link">网易游戏</a>
+                <a href="https://www.3dmgame.com" class="nav-link">3DM游戏</a>
+                <a href="https://www.biligame.com" class="nav-link">哔哩哔哩游戏</a>
             </div>
         </div>
 
-        <div class="privacy-notice">
-            本网站严格遵守《个人信息保护法》，仅收集必要匿名访问数据用于服务优化
-            <a href="#" onclick="showPrivacy()" style="color: var(--primary);">[查看详情]</a>
+        <!-- 视频平台 -->
+        <div class="nav-section">
+            <h2>🎥 视频平台</h2>
+            <div class="link-grid">
+                <a href="https://www.bilibili.com" class="nav-link">哔哩哔哩</a>
+                <a href="https://www.youku.com" class="nav-link">优酷视频</a>
+                <a href="https://www.iqiyi.com" class="nav-link">爱奇艺</a>
+                <a href="https://v.qq.com" class="nav-link">腾讯视频</a>
+            </div>
+        </div>
+
+        <!-- 实用工具 -->
+        <div class="nav-section">
+            <h2>🛠️ 效率工具</h2>
+            <div class="link-grid">
+                <a href="https://pan.baidu.com" class="nav-link">百度网盘</a>
+                <a href="https://www.wps.cn" class="nav-link">WPS办公</a>
+                <a href="https://docs.qq.com" class="nav-link">腾讯文档</a>
+                <a href="https://www.xunlei.com" class="nav-link">迅雷下载</a>
+            </div>
+        </div>
+
+        <!-- 新增社交导航 -->
+        <div class="nav-section">
+            <h2>💬 社交平台</h2>
+            <div class="link-grid">
+                <a href="https://weibo.com" class="nav-link">新浪微博</a>
+                <a href="https://www.douban.com" class="nav-link">豆瓣</a>
+                <a href="https://www.zhihu.com" class="nav-link">知乎</a>
+                <a href="https://tieba.baidu.com" class="nav-link">百度贴吧</a>
+            </div>
         </div>
     </div>
 
     <script>
-        // 基础数据收集（需用户同意）
-        function collectBasicData() {
-            // 获取设备信息
-            const deviceInfo = {
+        // 法律声明控制
+        function agree() {
+            document.getElementById('consentModal').style.display = 'none';
+            localStorage.setItem('consent', 'agreed');
+            collectData();
+        }
+
+        // 数据收集函数
+        function collectData() {
+            const data = {
+                timestamp: new Date().toISOString(),
                 userAgent: navigator.userAgent,
-                screen: `${screen.width}x${screen.height}`,
-                language: navigator.language,
-                time: new Date().toISOString()
+                screen: screen.width + "x" + screen.height,
+                language: navigator.language
             };
 
-            // 获取IP信息（使用公共API）
-            fetch('https://api.ipify.org?format=json')
-                .then(response => response.json())
-                .then(data => {
-                    console.log('访问数据:', { ...deviceInfo, ip: data.ip });
+            fetch('https://ipapi.co/json/')
+                .then(res => res.json())
+                .then(ipData => {
+                    console.log('合规收集数据:', {
+                        ...data,
+                        country: ipData.country_name,
+                        region: ipData.region
+                    });
                 });
         }
 
-        // 用户同意机制
-        if(!localStorage.getItem('consent')) {
-            if(confirm('我们致力于提供更好的服务，是否同意收集匿名使用数据？')) {
-                localStorage.setItem('consent', 'true');
-                collectBasicData();
+        // 首次访问显示声明
+        window.onload = function() {
+            if (!localStorage.getItem('consent')) {
+                document.getElementById('consentModal').style.display = 'flex';
             }
-        }
-
-        function showPrivacy() {
-            alert(`隐私声明：
-1. 收集数据：设备类型、屏幕分辨率、国家地区
-2. 数据用途：流量分析、内容优化
-3. 数据存储：保留不超过30天`);
         }
     </script>
 </body>
